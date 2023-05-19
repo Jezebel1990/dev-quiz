@@ -1,41 +1,83 @@
 import React from 'react';
 import { TextField} from '@mui/material'
-import { Box } from '@mui/material'
-import { Button } from '@mui/material'
-import { Card } from '@mui/material'
-import { CardContent } from '@mui/material'
+import { Box, Button, Card, CardContent, Typography } from '@mui/material'
+import Center from './Center'
+import useForm from '../hooks/useForm';
+
+const getFreshModel= () => ({
+  name: '',
+  email: ''
+})
 
 function Login() {
-  return (
+
+  const {
+    values,
+    setValues,
+    errors,
+    setErrors,
+    handleInputChange
+  } = useForm(getFreshModel);
+
+const login = e => {
+  e.preventDefault();
+  if (validate())
+    console.log(values);
+}
+
+const validate = ()=>{
+    let temp = {}
+    temp.email = (/\S+@\S+\.\S+/).test(values.email) ? "" : "Email inválido."
+    // eslint-disable-next-line eqeqeq
+    temp.name = values.name != "" ? "" : "Este campo é obrigatório."
+    setErrors(temp)
+    return Object.values(temp).every(x => x === "")
+  }
+
+
+return (
+<Center>
     <Card sx={{ width: 400 }}>
-        <CardContent>
-        <Box sx={{ '& .MuiTextField-root': {
-        m:1,
-        with: '90%'
+        <CardContent sx={{ textAlign: 'center' }}>
+      <Typography variant="h3" sx={{ my: 3 }}>
+      Quiz Devs
+      </Typography>
+        <Box sx={{ 
+   '& .MuiTextField-root': {
+        m: 1,
+        width: "90%"
     }
-    
     }}> 
-   <form noValidate autoComplete='off'>
-<TextField 
+
+<form noValidate autoComplete='off' onSubmit={login}>
+  <TextField 
     label= "Email"
     name="email"
-    variant="outlined"/>
+    value={values.email}
+    onChange={handleInputChange}
+    variant="outlined"
+    {...(errors.email && { error: true, helperText: errors.email })} 
+    />
+    
 <TextField 
     label="Nome"
     name="name"
-    variant="outlined"/>
+    value={values.name}
+    onChange={handleInputChange}
+    variant="outlined"
+    {...(errors.name && { error: true, helperText: errors.name })}
+    />
+    
 <Button
     type="submit"
     variant="contained"
     size="large"
-    sx={{width:'90'}}
-    >
-    Começar</Button>
+    sx={{ width:"90%"}}>Começar</Button>
    </form>
    </Box>
-        </CardContent>
+    </CardContent>
     </Card>
-
+  </Center>
 
   
   )
