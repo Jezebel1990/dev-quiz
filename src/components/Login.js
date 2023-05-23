@@ -4,6 +4,7 @@ import { Box, Button, Card, CardContent, Typography } from '@mui/material'
 import Center from './Center'
 import useForm from '../hooks/useForm';
 import { ENDPOINTS, createAPIEndpoint } from '../api';
+import { useStateContext } from '../hooks/useStateContext';
 
 const getFreshModel= () => ({
   name: '',
@@ -11,6 +12,8 @@ const getFreshModel= () => ({
 })
 
 function Login() {
+
+ const {context, setContext } = useStateContext();
 
   const {
     values,
@@ -25,7 +28,10 @@ const login = e => {
   if (validate())
     createAPIEndpoint(ENDPOINTS.participant)
     .post(values)
-    .then(res => console.log(res))
+    .then(res => {
+      setContext({ participantId: res.data.participantId })
+    })
+    
     .catch(err => console.log(err))
 }
 
