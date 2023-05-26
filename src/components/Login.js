@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { Button, Card, CardContent, TextField, Typography } from '@mui/material'
@@ -28,13 +29,8 @@ export default function Login() {
       } = useForm(getFreshModel);
 
 useEffect(() => {
-
-  return () => {
-
-  }
+   resetContext()
 }, [])
-
-
 
 
 const login = e => {
