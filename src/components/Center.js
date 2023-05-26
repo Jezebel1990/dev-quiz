@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import React from 'react'
 
-function Center(props) {
+export default function Center(props) {
 return (
     <Grid container
         direction= "column"
@@ -15,4 +15,3 @@ return (
     )
   }
 
-export default Center

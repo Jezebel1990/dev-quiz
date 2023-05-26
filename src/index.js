@@ -1,14 +1,34 @@
+
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+// import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material/';
+import { ContextProvider } from './hooks/useStateContext';
 import reportWebVitals from './reportWebVitals';
+import { render } from 'react-dom';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+  typography:{
+    fontFamily:'"IBM Plex Sans"'
+  }
+})
+
+const root = document.getElementById('root');
+render(
   <React.StrictMode>
+    <ContextProvider>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
     <App />
-  </React.StrictMode>
+    </ThemeProvider>
+    </ContextProvider>
+  </React.StrictMode>,
+  root
 );
 
 // If you want to start measuring performance in your app, pass a function

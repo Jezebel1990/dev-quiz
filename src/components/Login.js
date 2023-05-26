@@ -1,27 +1,32 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
-import { TextField} from '@mui/material'
-import { Box, Button, Card, CardContent, Typography } from '@mui/material'
+import { Button, Card, CardContent, TextField, Typography } from '@mui/material'
+import { Box } from "@mui/system"
 import Center from './Center'
 import useForm from '../hooks/useForm';
 import { ENDPOINTS, createAPIEndpoint } from '../api';
-import { useStateContext } from '../hooks/useStateContext';
+import  useStateContext  from '../hooks/useStateContext';
+import { useNavigate } from 'react-router';
+
 
 const getFreshModel= () => ({
   name: '',
   email: ''
 })
 
-function Login() {
+export default function Login() {
 
- const {context, setContext } = useStateContext();
+    const { context, setContext } = useStateContext();
+    const navigate = useNavigate();
 
   const {
-    values,
-    setValues,
-    errors,
-    setErrors,
-    handleInputChange
-  } = useForm(getFreshModel);
+        values,
+        setValues,
+        errors,
+        setErrors,
+        handleInputChange
+      } = useForm(getFreshModel);
+
 
 const login = e => {
   e.preventDefault();
@@ -29,17 +34,16 @@ const login = e => {
     createAPIEndpoint(ENDPOINTS.participant)
     .post(values)
     .then(res => {
-      setContext({ participantId: res.data.participantId })
+        setContext({ participantId: res.data.participantId })
+      navigate('/quiz')
     })
-    
     .catch(err => console.log(err))
 }
 
-const validate = ()=>{
+const validate = () => {
     let temp = {}
     temp.email = (/\S+@\S+\.\S+/).test(values.email) ? "" : "Email inválido."
-    // eslint-disable-next-line eqeqeq
-    temp.name = values.name != "" ? "" : "Este campo é obrigatório."
+    temp.name = values.name !== "" ? "" : "Este campo é obrigatório."
     setErrors(temp)
     return Object.values(temp).every(x => x === "")
   }
@@ -82,7 +86,8 @@ return (
     type="submit"
     variant="contained"
     size="large"
-    sx={{ width:"90%"}}>Começar</Button>
+    sx={{ width:"90%"}}>
+    Começar</Button>
    </form>
    </Box>
     </CardContent>
@@ -93,4 +98,3 @@ return (
   )
 }
 
-export default Login

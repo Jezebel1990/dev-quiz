@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function useForm(getFreshModelObject) {
+export default function useForm(getFreshModelObject) {
 
 const [values, setValues ] = useState(getFreshModelObject());
 const [errors, setErrors] = useState({});
@@ -21,4 +21,3 @@ return {
     handleInputChange
 }
 }
-export default useForm;

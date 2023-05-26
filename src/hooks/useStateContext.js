@@ -1,27 +1,40 @@
-import React, { createContext, useState, useContext  } from 'react'
+import React, { createContext, useState, useContext, useEffect  } from 'react'
 
 
-const stateContext = createContext();
+export const stateContext = createContext();
 
 const getFreshContext = () => {
-    return {
+if (localStorage.getItem('context') === null)
+    localStorage.setItem('context', JSON.stringify({
         participantId: 0,
         timeTaken: 0,
         selectedOptions: []
-    }
+    }))
+    return JSON.parse(localStorage.getItem('context'))
 }
 
-export function useStateContext() {
+
+
+export default function useStateContext() {
     const { context, setContext } = useContext(stateContext)
     return { context,
-        setContext: obj => {  setContext ({...context, ...obj })}
+        setContext: obj => {
+              setContext ({...context, ...obj }) },
+       resetContext: ()=>{
+        localStorage.removeItem('context')
+        setContext(getFreshContext())
+       }       
 
     };
 
 }
 
-function ContextProvider({ children }) {
+export function ContextProvider({ children }) {
 const [context, setContext] = useState(getFreshContext())
+
+ useEffect(() => {
+     localStorage.setItem('context', JSON.stringify(context))
+ }, [context])
 
 
   return (
@@ -31,4 +44,4 @@ const [context, setContext] = useState(getFreshContext())
   )
 }
 
-export default ContextProvider;
+

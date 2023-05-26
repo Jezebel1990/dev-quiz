@@ -1,12 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { ENDPOINTS, createAPIEndpoint } from '../api';
+import { CardContent, Typography, Card, List, ListItemButton } from '@mui/material';
 
-function Quiz() {
 
-  
+export default function Quiz() {
 
+    const [qns, setQns] = useState([])
+    const [qnIndex] = useState()
+
+    useEffect(()=>{
+        createAPIEndpoint(ENDPOINTS.question)
+        .fetch()
+        .then(res=>{
+             setQns(res.data)
+             console.log(res.data)
+        })
+        .catch(err=>{console.log(err);})
+    }, [])
 
     return (
-        <div>Question</div>
+         qns.length !== 0
+         ? <Card>
+            <CardContent>
+            <Typography variant='h6'>
+               {qns[qnIndex].qnInWords}
+            </Typography>
+            <List>
+                {qns[qnIndex].options.map((item, idx)=>
+                <ListItemButton key={idx}
+                disableRipple>
+                <div>
+                    {item}
+                </div>
+</ListItemButton>
+                )}
+
+            </List>
+            </CardContent>
+         </Card>
+         :null
     )
 }
-export default Quiz;
