@@ -4,6 +4,7 @@ import Login from './components/Login';
 import Quiz from './components/Quiz';
 import Result from './components/Result';
 import React from "react";
+import Layout from './components/Layout';
 
 
 function App() {
@@ -11,8 +12,10 @@ function App() {
 <BrowserRouter>
 <Routes>
 <Route path="/" element={<Login />} />
+<Route path="/" element={<Layout />}>
 <Route path="/quiz" element={<Quiz />} />
 <Route path="/result" element={<Result />} />
+</Route>
 </Routes>
 </BrowserRouter>
 
