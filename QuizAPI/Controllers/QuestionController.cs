@@ -27,10 +27,10 @@ namespace QuizAPI.Controllers
           var random5Qns = await(_context.Questions
                 .Select(x => new
                 {
-                    QnId =x.QnId,
+                    QnId = x.QnId,
                     QnInWords = x.QnInWords,
                     ImageName = x.ImageName,
-                    Options = new string[] {x.Option1, x.Option2,x.Option3,x.Option4}
+                    Options = new string[] { x.Option1, x.Option2, x.Option3, x.Option4 }
                 })
                 .OrderBy(y=> Guid.NewGuid())
                 .Take(5)
@@ -43,10 +43,7 @@ namespace QuizAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Question>> GetQuestion(int id)
         {
-          if (_context.Questions == null)
-          {
-              return NotFound();
-          }
+  
             var question = await _context.Questions.FindAsync(id);
 
             if (question == null)
@@ -111,21 +108,17 @@ namespace QuizAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteQuestion(int id)
         {
-            if (_context.Questions == null)
-            {
-                return NotFound();
-            }
             var question = await _context.Questions.FindAsync(id);
             if (question == null)
             {
                 return NotFound();
             }
+             _context.Questions.Remove(question);
+             await _context.SaveChangesAsync();
 
-            _context.Questions.Remove(question);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
+                return NoContent();
+            }
+   
 
         private bool QuestionExists(int id)
         {

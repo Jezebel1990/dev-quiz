@@ -12,6 +12,7 @@
     <WebStackScaffolding_DbContextTypeFullName>QuizAPI.Models.QuizDbContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <ActiveDebugProfile>IIS Express</ActiveDebugProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\notre\Documents\Projetos\QUIZ\QuizAPI\QuizAPI\Properties\PublishProfiles\QuizAPI20230528143941 - Zip Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

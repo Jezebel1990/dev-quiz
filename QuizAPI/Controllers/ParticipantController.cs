@@ -122,7 +122,7 @@ namespace QuizAPI.Controllers
 
         private bool ParticipantExists(int id)
         {
-            return (_context.Participants?.Any(e => e.ParticipantId == id)).GetValueOrDefault();
+            return _context.Participants.Any(e => e.ParticipantId == id);
         }
     }
 }
